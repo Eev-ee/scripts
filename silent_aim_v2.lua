@@ -19,6 +19,9 @@ local particle = shared.require("particle");
 local physics = shared.require("physics");
 local values = shared.require("PublicSettings");
 local repInterface = shared.require("ReplicationInterface");
+local physics = shared.require("physics");
+
+local solve = getupvalue(physics.timehit, 2);
 
 -- functions
 local function getCharacter(entry)
@@ -63,6 +66,8 @@ old = hookfunction(particle.new, function(args)
         local part = character and character[targetedPart];
         if player and part then
             local bulletSpeed = args.velocity.Magnitude;
+            --[[ continue this part imtoo lazy (look at old framework on how htey predict velocity)    
+            ]]
             local travelTime = (part.Position - args.position).Magnitude / bulletSpeed;
 
             args.velocity = physics.trajectory(
